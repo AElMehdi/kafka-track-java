@@ -15,4 +15,18 @@ public class TransformStreamTest {
       assertThat(movie.getTitle()).isEqualTo("Tree of Life");
       assertThat(movie.getGenre()).isEqualTo("drama");
    }
+
+//   @Test
+//   void should_transform_a_kafka_movies_stream() {
+//
+//
+//      TopologyTestDriver testDriver = null;
+//      String outputTopic = "";
+//      Deserializer<String> keyDeserializer = null;
+//
+//      SpecificAvroDeserializer valueDeserializer = null;
+//      List<Movie> transformed = readOutputTopic(testDriver, outputTopic, keyDeserializer, valueDeserializer);
+//
+//      assertThat(transformed).hasSize(4);
+//   }
 }

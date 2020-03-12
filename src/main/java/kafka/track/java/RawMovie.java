@@ -20,6 +20,6 @@ public class RawMovie {
    }
 
    public String getGenre() {
-      return this.genre;
+      return genre;
    }
 }
