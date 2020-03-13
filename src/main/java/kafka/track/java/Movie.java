@@ -1,13 +1,16 @@
 package kafka.track.java;
 
-public class Movie {
+import org.apache.avro.Schema;
+import org.apache.avro.specific.SpecificRecord;
+
+public class Movie implements SpecificRecord {
 
    private final long id;
    private final String title;
-   private final String releaseYear;
+   private final int releaseYear;
    private final String genre;
 
-   public Movie(long id, String title, String releaseYear, String genre) {
+   public Movie(long id, String title, int releaseYear, String genre) {
       this.id = id;
       this.title = title;
       this.releaseYear = releaseYear;
@@ -22,11 +25,26 @@ public class Movie {
       return title;
    }
 
-   public String getReleaseYear() {
+   public int getReleaseYear() {
       return releaseYear;
    }
 
    public String getGenre() {
       return genre;
+   }
+
+   @Override
+   public void put(int i, Object v) {
+
+   }
+
+   @Override
+   public Object get(int i) {
+      return null;
+   }
+
+   @Override
+   public Schema getSchema() {
+      return null;
    }
 }
