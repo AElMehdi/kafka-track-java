@@ -19,6 +19,7 @@ dependencies {
     compile("org.apache.avro:avro:1.8.2")
     implementation("io.confluent:kafka-streams-avro-serde:5.2.1")
 
+    implementation("org.slf4j:slf4j-simple:1.7.26")
 
     // Use JUnit Jupiter API for testing.
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.4.2")

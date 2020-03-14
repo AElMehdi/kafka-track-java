@@ -18,7 +18,7 @@ import java.util.*;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class TransformStreamTest {
+class TransformStreamTest {
 
    private static final String TEST_PROPERTIES_FILE = "test.properties";
 
