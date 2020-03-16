@@ -56,7 +56,6 @@ class TransformStreamTest {
       var inputFactory = new ConsumerRecordFactory<>(keySerializer, valueSerializer);
 
       for (RawMovie rawMovie : rawMovies()) {
-         // Need to know why they were passing a rawMovie object!
          testDriver.pipeInput(inputFactory.create(inputTopicName, rawMovie.getTitle(), rawMovie));
       }
 
