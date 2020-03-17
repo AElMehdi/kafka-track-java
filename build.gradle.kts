@@ -3,6 +3,7 @@ plugins {
     application
 
     id("com.commercehub.gradle.plugin.avro") version "0.9.1"
+    id("com.github.johnrengelman.shadow") version "5.2.0"
 }
 
 repositories {
