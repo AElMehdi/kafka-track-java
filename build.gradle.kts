@@ -2,6 +2,7 @@ plugins {
     java
     application
 
+    // Generate Java classes from avsc files
     id("com.commercehub.gradle.plugin.avro") version "0.9.1"
     id("com.github.johnrengelman.shadow") version "5.2.0"
 }
@@ -32,10 +33,27 @@ dependencies {
 }
 
 application {
-    mainClassName = "kafka.track.java.App"
+    mainClassName = "kafka.track.java.TransformStream"
+//        classpath = sourceSets.main.runtimeClasspath
+//        args = ['configuration/dev.properties']
 }
 
-val test by tasks.getting(Test::class) {
-    // Use junit platform for unit tests
-    useJUnitPlatform()
+tasks {
+    jar {
+        manifest {
+            attributes(mapOf(
+//                "Class-Path" to configurations.compile.collect { it.getName() }.join(' '),
+                    "Main-Class" to "kafka.track.java.TransformStream"
+            ))
+        }
+    }
+
+    shadowJar {
+        archiveBaseName.set("kstreams-transform-standalone-${archiveVersion}.${archiveExtension}")
+    }
+
+    test {
+        // Use junit platform for unit tests
+        useJUnitPlatform()
+    }
 }
