@@ -4,6 +4,7 @@ import io.confluent.kafka.streams.serdes.avro.SpecificAvroDeserializer;
 import io.confluent.kafka.streams.serdes.avro.SpecificAvroSerializer;
 import kafka.track.java.avro.Movie;
 import kafka.track.java.avro.RawMovie;
+import kafka.track.java.stream.TransformStream;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.Deserializer;
 import org.apache.kafka.common.serialization.Serdes;
