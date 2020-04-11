@@ -20,9 +20,9 @@ import java.util.*;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class AggregatingCountTest {
+class AggregatingCountTest {
 
-    private final static String TEST_CONFIG_FILE = "configuration/test.properties";
+    private final static String TEST_CONFIG_FILE = "aggregate/test.properties";
 
     private SpecificAvroSerde<TicketSale> makeSerializer(Properties envProps)
             throws IOException, RestClientException {
@@ -45,7 +45,7 @@ public class AggregatingCountTest {
     }
 
     @Test
-    public void shouldCountTicketSales() throws IOException, RestClientException {
+    void should_count_ticket_sales() throws IOException, RestClientException {
         AggregatingCount aggCount = new AggregatingCount();
         Properties envProps = aggCount.loadEnvProperties(TEST_CONFIG_FILE);
         Properties streamProps = aggCount.buildStreamsProperties(envProps);

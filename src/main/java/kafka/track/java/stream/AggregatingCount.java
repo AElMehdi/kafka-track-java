@@ -11,6 +11,7 @@ import org.apache.kafka.streams.kstream.Consumed;
 import org.apache.kafka.streams.kstream.Grouped;
 import org.apache.kafka.streams.kstream.Produced;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.*;
@@ -80,9 +81,11 @@ public class AggregatingCount {
 
     public Properties loadEnvProperties(String fileName) throws IOException {
         Properties envProps = new Properties();
-        FileInputStream input = new FileInputStream(fileName);
-        envProps.load(input);
-        input.close();
+        ClassLoader classLoader = getClass().getClassLoader();
+        File file = new File(classLoader.getResource(fileName).getFile());
+        FileInputStream inputFile = new FileInputStream(file);
+        envProps.load(inputFile);
+        inputFile.close();
 
         return envProps;
     }
