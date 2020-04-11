@@ -49,7 +49,7 @@ public class AggregatingCount {
 
         builder.stream(inputTopic, Consumed.with(Serdes.String(), ticketSaleSerde))
                 // Set key to title and value to ticket value
-                .map((k, v) -> new KeyValue<>((String) v.getTitle(), (Integer) v.getTicketTotalValue()))
+                .map((k, v) -> new KeyValue<>(v.getTitle(), v.getTicketTotalValue()))
                 // Group by title
                 .groupByKey(Grouped.with(Serdes.String(), Serdes.Integer()))
                 // Apply COUNT method
@@ -60,7 +60,7 @@ public class AggregatingCount {
         return builder.build();
     }
 
-    public void createTopics(Properties envProps) {
+    private void createTopics(Properties envProps) {
         Map<String, Object> config = new HashMap<>();
         config.put("bootstrap.servers", envProps.getProperty("bootstrap.servers"));
         AdminClient client = AdminClient.create(config);
