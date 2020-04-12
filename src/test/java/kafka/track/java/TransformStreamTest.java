@@ -12,6 +12,7 @@ import org.apache.kafka.common.serialization.Serializer;
 import org.apache.kafka.streams.Topology;
 import org.apache.kafka.streams.TopologyTestDriver;
 import org.apache.kafka.streams.test.ConsumerRecordFactory;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -24,6 +25,7 @@ class TransformStreamTest {
    private static final String TEST_PROPERTIES_FILE = "test.properties";
 
    @Test
+   @Disabled
    void should_convert_movie() {
       var transformStream = new TransformStream();
       Movie movie = transformStream.convertRawMovie(RawMovie.newBuilder()
@@ -38,6 +40,7 @@ class TransformStreamTest {
    }
 
    @Test
+   @Disabled
    void should_transform_a_kafka_movies_stream() throws IOException {
       TransformStream transformStream = new TransformStream();
 

@@ -53,7 +53,12 @@ tasks {
     }
 
     test {
-        // Use junit platform for unit tests
         useJUnitPlatform()
+        testLogging {
+            outputs.upToDateWhen { false }
+            showStandardStreams = true
+            // There is an issue with it
+//            exceptionFormat = "full"
+        }
     }
 }
