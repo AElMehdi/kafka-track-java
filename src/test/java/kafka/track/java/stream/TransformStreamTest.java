@@ -1,4 +1,4 @@
-package kafka.track.java;
+package kafka.track.java.stream;
 
 import io.confluent.kafka.streams.serdes.avro.SpecificAvroDeserializer;
 import io.confluent.kafka.streams.serdes.avro.SpecificAvroSerializer;
