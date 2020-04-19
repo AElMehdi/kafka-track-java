@@ -33,7 +33,7 @@ dependencies {
 }
 
 application {
-    mainClassName = "kafka.track.java.TransformStream"
+    mainClassName = "kafka.track.java.stream.TransformStream"
 //        classpath = sourceSets.main.runtimeClasspath
 //        args = ['configuration/dev.properties']
 }
@@ -43,13 +43,14 @@ tasks {
         manifest {
             attributes(mapOf(
 //                "Class-Path" to configurations.compile.collect { it.getName() }.join(' '),
-                    "Main-Class" to "kafka.track.java.TransformStream"
+                    "Main-Class" to "kafka.track.java.stream.TransformStream"
             ))
         }
     }
 
     shadowJar {
-        archiveBaseName.set("kstreams-transform-standalone-${archiveVersion}.${archiveExtension}")
+        archiveBaseName.set("kstreams-transform-standalone-1.0")
+//        archiveBaseName.set("kstreams-transform-standalone-${archiveVersion.get()}.${archiveExtension.get()}")
     }
 
     test {
