@@ -2,9 +2,11 @@ plugins {
     java
     application
 
-    // Generate Java classes from avsc files
+    // Generate Java classes from Avro (avsc) files
     id("com.commercehub.gradle.plugin.avro") version "0.9.1"
     id("com.github.johnrengelman.shadow") version "5.2.0"
+    id("com.google.cloud.tools.jib") version "1.1.1"
+
 }
 
 repositories {
