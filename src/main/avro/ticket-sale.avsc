@@ -1,5 +1,5 @@
 {
-  "namespace": "io.confluent.developer.avro",
+  "namespace": "kafka.track.java.avro",
   "type": "record",
   "name": "TicketSale",
   "fields": [

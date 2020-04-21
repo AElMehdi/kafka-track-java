@@ -1,8 +1,8 @@
 package kafka.track.java.stream;
 
-import io.confluent.developer.avro.TicketSale;
 import io.confluent.kafka.serializers.AbstractKafkaAvroSerDeConfig;
 import io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde;
+import kafka.track.java.avro.TicketSale;
 import org.apache.kafka.clients.admin.AdminClient;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.common.serialization.Serdes;

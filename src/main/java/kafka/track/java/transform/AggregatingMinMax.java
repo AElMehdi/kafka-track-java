@@ -1,29 +1,44 @@
 package kafka.track.java.transform;
 
+import io.confluent.kafka.serializers.AbstractKafkaAvroSerDeConfig;
+import io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde;
+import kafka.track.java.avro.MovieTicketSales;
+import kafka.track.java.avro.YearlyMovieFigures;
 import org.apache.kafka.clients.admin.AdminClient;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.common.serialization.Serdes;
-import org.apache.kafka.streams.*;
-import org.apache.kafka.streams.kstream.*;
+import org.apache.kafka.streams.KafkaStreams;
+import org.apache.kafka.streams.StreamsBuilder;
+import org.apache.kafka.streams.StreamsConfig;
+import org.apache.kafka.streams.Topology;
+import org.apache.kafka.streams.kstream.Consumed;
+import org.apache.kafka.streams.kstream.Grouped;
+import org.apache.kafka.streams.kstream.Materialized;
+import org.apache.kafka.streams.kstream.Produced;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.*;
-import java.util.concurrent.CountDownLatch;
 import java.time.Duration;
-
-import io.confluent.kafka.serializers.AbstractKafkaAvroSerDeConfig;
-import io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Objects;
+import java.util.Properties;
+import java.util.concurrent.CountDownLatch;
 
 public class AggregatingMinMax {
 
     public static Properties loadPropertiesFromConfigFile(String fileName) throws IOException {
         Properties envProps = new Properties();
-        try (FileInputStream fileStream = new FileInputStream(fileName)) {
-            envProps.load(fileStream);
-        }
+        ClassLoader classLoader = getClass().getClassLoader();
+        File file = new File(Objects.requireNonNull(classLoader.getResource(fileName)).getFile());
+        FileInputStream inputFile = new FileInputStream(file);
+        envProps.load(inputFile);
+
+        inputFile.close();
         return envProps;
     }
+
     public static Properties buildStreamsProperties(Properties envProps) {
         Properties props = new Properties();
 
@@ -34,6 +49,7 @@ public class AggregatingMinMax {
 
         return props;
     }
+
     public static SpecificAvroSerde<MovieTicketSales> ticketSaleSerde(final Properties envProps) {
         final SpecificAvroSerde<MovieTicketSales> serde = new SpecificAvroSerde<>();
         serde.configure(Collections.singletonMap(
@@ -41,6 +57,7 @@ public class AggregatingMinMax {
                 envProps.getProperty("schema.registry.url")), false);
         return serde;
     }
+
     public static SpecificAvroSerde<YearlyMovieFigures> movieFiguresSerde(final Properties envProps) {
         final SpecificAvroSerde<YearlyMovieFigures> serde = new SpecificAvroSerde<>();
         serde.configure(Collections.singletonMap(
@@ -65,7 +82,7 @@ public class AggregatingMinMax {
 
         Properties envProps = AggregatingMinMax.loadPropertiesFromConfigFile(configPath);
 
-        try ( AdminClient client = AdminClient.create(
+        try (AdminClient client = AdminClient.create(
                 Collections.singletonMap("bootstrap.servers", envProps.getProperty("bootstrap.servers")))) {
             createKafkaTopicsInCluster(client, envProps);
         }

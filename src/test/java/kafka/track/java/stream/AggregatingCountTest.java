@@ -1,9 +1,9 @@
 package kafka.track.java.stream;
 
-import io.confluent.developer.avro.TicketSale;
 import io.confluent.kafka.schemaregistry.client.MockSchemaRegistryClient;
 import io.confluent.kafka.schemaregistry.client.rest.exceptions.RestClientException;
 import io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde;
+import kafka.track.java.avro.TicketSale;
 import org.apache.avro.Schema;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.Deserializer;
@@ -18,7 +18,7 @@ import java.io.IOException;
 import java.util.*;
 
 import static java.util.Arrays.asList;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AggregatingCountTest {
 
