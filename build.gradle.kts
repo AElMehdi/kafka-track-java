@@ -44,7 +44,8 @@ tasks {
     jar {
         manifest {
             attributes(mapOf(
-//                "Class-Path" to configurations.compile.collect { it.getName() }.join(' '),
+//                "Class-P
+//                ath" to configurations.compile.collect { it.getName() }.join(' '),
                     "Main-Class" to "kafka.track.java.stream.TransformStream"
             ))
         }
