@@ -1,4 +1,4 @@
-package kafka.track.java.transform;
+package kafka.track.transform;
 
 import io.confluent.kafka.schemaregistry.client.MockSchemaRegistryClient;
 import io.confluent.kafka.schemaregistry.client.SchemaRegistryClient;

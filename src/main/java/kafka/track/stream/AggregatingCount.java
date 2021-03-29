@@ -1,4 +1,4 @@
-package kafka.track.java.stream;
+package kafka.track.stream;
 
 import io.confluent.kafka.serializers.AbstractKafkaAvroSerDeConfig;
 import io.confluent.kafka.streams.serdes.avro.SpecificAvroSerde;
@@ -11,12 +11,13 @@ import org.apache.kafka.streams.kstream.Consumed;
 import org.apache.kafka.streams.kstream.Grouped;
 import org.apache.kafka.streams.kstream.Produced;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.CountDownLatch;
 
-public class AggregatingSum {
+public class AggregatingCount {
 
     public Properties buildStreamsProperties(Properties envProps) {
         Properties props = new Properties();
@@ -48,18 +49,18 @@ public class AggregatingSum {
 
         builder.stream(inputTopic, Consumed.with(Serdes.String(), ticketSaleSerde))
                 // Set key to title and value to ticket value
-                .map((k, v) -> new KeyValue<>((String) v.getTitle(), (Integer) v.getTicketTotalValue()))
+                .map((k, v) -> new KeyValue<>(v.getTitle(), v.getTicketTotalValue()))
                 // Group by title
                 .groupByKey(Grouped.with(Serdes.String(), Serdes.Integer()))
-                // Apply SUM aggregation
-                .reduce(Integer::sum)
+                // Apply COUNT method
+                .count()
                 // Write to stream specified by outputTopic
-                .toStream().to(outputTopic, Produced.with(Serdes.String(), Serdes.Integer()));
+                .toStream().to(outputTopic, Produced.with(Serdes.String(), Serdes.Long()));
 
         return builder.build();
     }
 
-    public void createTopics(Properties envProps) {
+    private void createTopics(Properties envProps) {
         Map<String, Object> config = new HashMap<>();
         config.put("bootstrap.servers", envProps.getProperty("bootstrap.servers"));
         AdminClient client = AdminClient.create(config);
@@ -80,9 +81,11 @@ public class AggregatingSum {
 
     public Properties loadEnvProperties(String fileName) throws IOException {
         Properties envProps = new Properties();
-        FileInputStream input = new FileInputStream(fileName);
-        envProps.load(input);
-        input.close();
+        ClassLoader classLoader = getClass().getClassLoader();
+        File file = new File(classLoader.getResource(fileName).getFile());
+        FileInputStream inputFile = new FileInputStream(file);
+        envProps.load(inputFile);
+        inputFile.close();
 
         return envProps;
     }
@@ -93,7 +96,7 @@ public class AggregatingSum {
                     "This program takes one argument: the path to an environment configuration file.");
         }
 
-        new AggregatingSum().runRecipe(args[0]);
+        new AggregatingCount().runRecipe(args[0]);
     }
 
     private void runRecipe(final String configPath) throws IOException {

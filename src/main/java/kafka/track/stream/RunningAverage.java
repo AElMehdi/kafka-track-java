@@ -1,4 +1,4 @@
-package kafka.track.java.stream;
+package kafka.track.stream;
 
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
