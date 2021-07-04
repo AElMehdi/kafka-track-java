@@ -1,4 +1,4 @@
-package kafka.track.java.stream;
+package kafka.track.stream;
 
 import io.confluent.kafka.schemaregistry.client.MockSchemaRegistryClient;
 import io.confluent.kafka.schemaregistry.client.rest.exceptions.RestClientException;
